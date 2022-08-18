@@ -13,21 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            //$table->id();
+        Schema::create('jobs_locations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('fname');
-            $table->string('lname');
-            $table->string('tel');
+            $table->string('job_id')->references('id')->on('jobs')
+            ->onDelete('cascade');
+            $table->string('country');
             $table->string('state');
             $table->string('address')->nullable();
-            $table->string('company_name')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('user_type');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -39,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('jobs_locations');
     }
 };
