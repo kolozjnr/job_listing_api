@@ -10,6 +10,9 @@ class Jobs_requirement extends Model
 {
     use HasFactory, Uuid;
 
+    protected $fillable = [
+        'job_id','role','experience','qualification','gender','career_level'
+    ];
 
     /**
      * uuid setup

@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jobs_locations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('job_id')->references('job_id')->on('jobs')
-            ->onDelete('cascade');
-            $table->string('country');
-            $table->string('state');
-            $table->string('address')->nullable();
+        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->uuid('client_id');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs_locations');
+        Schema::dropIfExists('oauth_personal_access_clients');
     }
 };

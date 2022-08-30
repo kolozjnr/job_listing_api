@@ -11,7 +11,7 @@ class Jobs extends Model
 {
     use HasFactory, Uuid;
 
-
+    protected $fillable = ['user_id','job_id','job_title','apply_email','company_name','application_type','tags','sector','application_deadline','apply_email','is_urgent','is_filled','company_logo','status'];
 
      /**
      * uuid setup

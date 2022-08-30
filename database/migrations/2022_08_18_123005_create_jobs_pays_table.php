@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('jobs_pays', function (Blueprint $table) {
             //$table->id();
             $table->uuid('id')->primary();
-            $table->string('job_id')->references('id')->on('jobs')
+            $table->string('job_id')->references('job_id')->on('jobs')
             ->onDelete('cascade');
             $table->string('min_salary')->nullable();
             $table->string('max_salary');

@@ -10,7 +10,9 @@ class Jobs_location extends Model
 {
     use HasFactory, Uuid;
 
-
+    protected $fillable = [
+        'job_id','country','state','address'
+    ];
 
     /**
      * uuid setup

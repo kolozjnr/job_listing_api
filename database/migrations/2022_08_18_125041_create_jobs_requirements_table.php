@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('jobs_requirements', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('job_id')->references('id')->on('jobs')
+            $table->string('job_id')->references('job_id')->on('jobs')
             ->onDelete('cascade');
             $table->string('role');
             $table->string('experience');

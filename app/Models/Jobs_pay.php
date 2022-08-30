@@ -10,6 +10,9 @@ class Jobs_pay extends Model
 {
     use HasFactory, Uudi;
 
+    protected $fillable =[
+        'job_id','max_salary','min_salary','currency','salary_type'
+    ];
 
     /**
      * uuid setup

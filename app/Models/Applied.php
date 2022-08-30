@@ -10,7 +10,9 @@ class Applied extends Model
 {
     use HasFactory, Uuid;
 
-
+    protected $fillable = [
+        'resume'
+    ];
 
     /**
      * uuid setup

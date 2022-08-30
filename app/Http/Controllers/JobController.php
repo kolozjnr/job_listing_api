@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Jobs;
 use App\Traits\FileUpload;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
@@ -16,17 +17,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        //return ['message' => 'Barnabas welcome to API'];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
         //
+        return Jobs::all();
     }
 
     /**
@@ -37,7 +29,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        /*$request->validate([
             "job_title" => "required|max:50",
             "company_name" => "required",
             "tags" => "required",
@@ -50,56 +42,55 @@ class JobController extends Controller
             "qualification" => "required",
             "max_salary" => "required",
             "state" => "required",
-        ]);
+        ]);*/
 
         if( $file = $request->file('image') ) {
             $path = 'employer_logos/images';
             $url = $this->FileUpload($file,$path,300,400);
         }
 
+        //generate random uuid for foreignkeys
+         $foreignid  = (string) Str::uuid();
 
-        $input = new Job;
-        $input->user_id = Auth->user();
-        $input->job_id = (string) Str::uuid();
-        $input->job_tile = $request->job_title;
-        $input->company_name = $request->company_name;
-        $input->tags = $request->tags;
-        $input->sector = $request->sector;
-        $input->application_type = $request->application_type;
-        $input->application_deadline = $request->application_deadline;
-        $input->apply_email = $request->apply_email;
-        $input->is_urgent = $request->is_urgent;
-        $input->is_filled = $request->is_filled;
-        $input->status = $request->status;
-        $input->company_logo = $url;
+        $input = new Jobs;
+        $input->user_id = 1;
+        $input->job_id = $foreignid;
+        $input->job_title = $request->input('job_title');
+        $input->company_name = $request->input('company_name');
+        $input->tags = $request->input('tags');
+        $input->sector = $request->input('sector');
+        $input->application_type = $request->input('application_type');
+        $input->application_deadline = $request->input('application_deadline');
+        $input->apply_email = $request->input('apply_email');
+        $input->is_urgent = $request->input('is_urgent');
+        $input->is_filled = $request->input('is_filled');
+        $input->status = $request->input('status');
+        $input->company_logo = $request->input('company_logo');
 
+        $input->save();
+        
+        return response()->json($input, 200);
         //add job Requirement
 
-        $job_descr = new Jobs_location;
-        $job_descr->job_id = think;
+       /* $job_descr = new Jobs_location;
+        $job_descr->jobs_id = $foreignid;
+        $job_descr->role = $request->role;
+        $job_descr->experience = $request->experience;
+        $job_descr->qualification = $request->qualification;
+        $job_descr->gender = $request->gender;
+        $job_descr->career_level = $request->career_level; **/
+        //$response->assertStatus(200);
     }
 
     /**
-     * Display the specif
-        $input->ied resource.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Jobs::find($id);
     }
 
     /**
