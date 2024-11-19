@@ -52,6 +52,8 @@ class AuthUserController extends Controller
         } 
     }
 
+    
+
     //get login user api
 
     public function details() 
