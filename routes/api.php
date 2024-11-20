@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::group(['middleware' => 'auth:api'], function(){
         Route::get('listings', [ListingController::class, 'index']);
         Route::get('listing/{id}', [ListingController::class, 'show']);
+        Route::post('listings/create', [ListingController::class, 'store']);
         });
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
