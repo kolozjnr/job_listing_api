@@ -27,16 +27,18 @@ Route::post('register', [AuthUserController::class, 'register']);
 
 
 Route::resource('jobs', JobController::class);
-
-Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('details', [AuthUserController::class, 'details']);
-    });
-
-    Route::group(['middleware' => 'auth:api'], function(){
+//'middleware' => 'auth:api', 
+    Route::group(['prefix' => 'listing'], function(){
+        Route::post('details', [AuthUserController::class, 'details']);
         Route::get('listings', [ListingController::class, 'index']);
-        Route::get('listing/{id}', [ListingController::class, 'show']);
-        Route::post('listings/create', [ListingController::class, 'store']);
-        });
+        Route::get('show/{id}', [ListingController::class, 'show']);
+        Route::post('store', [ListingController::class, 'store']);
+        Route::put('/update/{id}', [ListingController::class, 'updateListing']);
+        Route::delete('destroy/{id}', [ListingController::class, 'destroy']);
+    
+        
+        
+    })->withoutMiddleware();
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/

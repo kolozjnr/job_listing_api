@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Listing extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags'];
+    protected $fillable = ['title', 'company', 'logo', 'location', 'website', 'email', 'description', 'tags'];
 
     //this scope filters tags and searches, it does the magic for both make sure you have an input field named search
     public function scopeFilter($query, array $filters) {

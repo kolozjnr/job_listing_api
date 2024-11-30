@@ -47,4 +47,11 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    protected function redirectTo($request)
+    {
+        if (!$request->expectsJson()) {
+            return null; // Or redirect to a placeholder route
+        }
+    }
 }
