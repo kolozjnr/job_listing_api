@@ -107,10 +107,6 @@ class ListingController extends Controller
 
         ]);
 
-        // if($request->hasFile('logo')) {
-        //     $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
-        // }
-
         $update = $listing->update($validatedData);
         if(!$update) {
             return response()->json([
@@ -123,31 +119,6 @@ class ListingController extends Controller
         ], 201);
     }
 
-    public function updateListing(Request $request, $id) {
-           // Log incoming data
-        \Log::info('Updating Listing', ['id' => $id, 'data' => $request->all()]);
-
-        // Validate incoming request
-        $validatedData = $request->validate([
-            'field_name' => 'required|string', // Replace 'field_name' with actual fields
-            // Add more fields as needed
-        ]);
-
-        // Find the listing
-        $listing = Listing::find($id);
-
-        if (!$listing) {
-            \Log::error('Listing not found', ['id' => $id]);
-            return response()->json(['message' => 'Listing not found'], 404);
-        }
-
-        // Update the listing
-        $listing->update($validatedData);
-
-        // Return the updated data
-        return response()->json($listing->fresh(), 200);
-    }
-
 
 /**
  * Remove the specified listing from storage.
@@ -155,9 +126,9 @@ class ListingController extends Controller
  * @param  \App\Models\Listing  $listing
  * @return void
  */
-    public function destroy(Listing $listing)
-    {
-        $listing->delete();
-        return response()->json(['message' => 'Listing deleted']);
-    }
+public function destroy(Listing $listing)
+{
+    $listing->delete();
+    return response()->json(['message' => 'Listing deleted']);
+}
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\ListingApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +34,17 @@ Route::resource('jobs', JobController::class);
         Route::get('listings', [ListingController::class, 'index']);
         Route::get('show/{id}', [ListingController::class, 'show']);
         Route::post('store', [ListingController::class, 'store']);
-        Route::put('/update/{id}', [ListingController::class, 'updateListing']);
-        Route::delete('destroy/{id}', [ListingController::class, 'destroy']);
+        Route::put('/update/{listing}', [ListingController::class, 'update']);
+        Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+
     
         
         
     })->withoutMiddleware();
+
+    Route::group(['prefix' => 'applied'], function(){
+                Route::post('/applied/{id}', [ListingApplicationController::class, 'apply']);
+    });
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
